@@ -1,6 +1,6 @@
 package com.example.ReceiptScanner;
 
-import com.example.ReceiptScanner.Accounting.Account;
+import com.example.ReceiptScanner.Accounting.*;
 
 import java.util.List;
 import javax.persistence.GeneratedValue;
@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 public class User {
     private @Id @GeneratedValue  Long userID;
-    private String uniqueIdentifier;
+    //private String uniqueIdentifier;
 
     private double budget;
     private double savingsGoal;

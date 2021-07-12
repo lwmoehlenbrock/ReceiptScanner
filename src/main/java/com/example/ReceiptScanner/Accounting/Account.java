@@ -1,8 +1,10 @@
 package com.example.ReceiptScanner.Accounting;
 
+import com.example.ReceiptScanner.User;
+
 import java.util.List;
 
-public class Account {
+public class Account extends User {
     List<Savings> savingsList;
     List<Checking> checkingList;
 
