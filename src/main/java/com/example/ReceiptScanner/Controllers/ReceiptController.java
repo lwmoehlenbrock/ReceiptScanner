@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -25,13 +26,8 @@ public class ReceiptController {
     }
 
     @PostMapping("/receipts/scan")
-    public void scanReceipt(@RequestBody File image) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(ReceiptService.upload(image).getInputStream()));
-        String inputLine;
-        StringBuilder output = new StringBuilder();
-        while((inputLine=in.readLine()) != null){
-            output.append(inputLine).append("\n");
-        }
-        log.info(output.toString());
+    public void scanReceipt(@ModelAttribute MultipartFile image) throws IOException {
+
+        log.info(ReceiptService.upload(image));
     }
 }
