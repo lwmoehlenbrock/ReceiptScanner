@@ -1,20 +1,12 @@
-package com.example.ReceiptScanner.Accounting;
+package com.example.ReceiptScanner.Model;
 
-import com.example.ReceiptScanner.Model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Account extends User {
 
-    public Account(String accountType, double balance) {
-
-        this.accountType = accountType;
-        this.balance = balance;
-    }
-//helloc
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnore
     User user;
@@ -23,7 +15,8 @@ public class Account extends User {
     @GeneratedValue
     private Long id;
     private String accountType;
-    private double balance;
+    private String accountName;
+    private String balance;
 
     public User getUser() {
         return user;
@@ -51,11 +44,19 @@ public class Account extends User {
         this.accountType = accountType;
     }
 
-    public double getBalance() {
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public String getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(String balance) {
         this.balance += balance;
     }
 }

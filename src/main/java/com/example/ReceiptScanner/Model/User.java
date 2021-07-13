@@ -1,7 +1,5 @@
 package com.example.ReceiptScanner.Model;
 
-import com.example.ReceiptScanner.Accounting.*;
-
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
