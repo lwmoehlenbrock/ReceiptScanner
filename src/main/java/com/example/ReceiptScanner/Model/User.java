@@ -7,22 +7,36 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
 
-     @Id
-     @GeneratedValue
-     private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
+    private String name;
     private double budget;
     private double savingsGoal;
 
-    // establish relationship
+    @OneToMany(mappedBy = "user")
     private List<Account> accounts;
+
+    @OneToMany(mappedBy = "user")
     private List<Receipt> reciepts;
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", budget=" + budget +
+                ", savingsGoal=" + savingsGoal +
+                ", accounts=" + accounts +
+                ", reciepts=" + reciepts +
+                '}';
+    }
 
     public double getBudget() {
         return budget;
@@ -64,5 +78,11 @@ public class User {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 }

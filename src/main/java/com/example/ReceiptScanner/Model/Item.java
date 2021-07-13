@@ -1,6 +1,11 @@
 package com.example.ReceiptScanner.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import java.util.List;
 
 @Entity
 public class Item {
@@ -8,6 +13,19 @@ public class Item {
     private String name;
     private String type;
     private double cost;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Receipt> receipts;
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", cost=" + cost +
+                '}';
+    }
 
     public String getName() {
         return name;
