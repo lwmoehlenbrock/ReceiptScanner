@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 public class Account extends User {
-//hellog
+//hello
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnore
     User user;
