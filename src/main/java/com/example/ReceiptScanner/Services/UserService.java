@@ -1,5 +1,6 @@
 package com.example.ReceiptScanner.Services;
 
+import com.example.ReceiptScanner.Accounting.Account;
 import com.example.ReceiptScanner.Exceptions.InvalidUserException;
 import com.example.ReceiptScanner.Model.User;
 import com.example.ReceiptScanner.Repositories.UserRepository;
@@ -38,13 +39,23 @@ public class UserService {
         foundUser.setSavingsGoal(savingsGoal);
     }
 
-    /*public double getAccountBalance(Long userID) {
+    public double getSavingsGoal(Long userID) {
         Optional<User> myUser = userRepository.findById(userID);
 
         if (!myUser.isPresent()) {
             throw new InvalidUserException(""+userID);
         }
         User foundUser = myUser.get();
-        return foundUser.getAccounts()
-    }*/
+        return foundUser.getSavingsGoal();
+    }
+
+    // TO DO
+    public Account addAccount(Long userID, Account account) {
+        return account;
+    }
+
+    // TO DO
+    public double getAccountBalance(Long userID) {
+        return 0;
+    }
 }

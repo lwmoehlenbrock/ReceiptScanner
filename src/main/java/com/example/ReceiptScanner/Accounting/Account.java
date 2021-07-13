@@ -3,38 +3,53 @@ package com.example.ReceiptScanner.Accounting;
 import com.example.ReceiptScanner.Model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Account extends User {
-
+//helloc
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnore
     User user;
 
-    @OneToMany(mappedBy = "account")
-    List<Savings> savingsList;
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String accountType;
+    private String balance;
 
-    @OneToMany(mappedBy = "account")
-    List<Checking> checkingList;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
-    public String toString() {
-        return "Account{" +
-                "savingsList=" + savingsList +
-                ", checkingList=" + checkingList +
-                '}';
+    public Long getId() {
+        return id;
     }
 
-    public List<Savings> getSavingsList() {
-        return savingsList;
+    @Override
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public List<Checking> getCheckingList() {
-        return checkingList;
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance += balance;
     }
 }

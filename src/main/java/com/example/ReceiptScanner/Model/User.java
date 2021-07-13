@@ -1,7 +1,6 @@
 package com.example.ReceiptScanner.Model;
 
 import com.example.ReceiptScanner.Accounting.*;
-import com.example.ReceiptScanner.Model.Receipt;
 
 import java.util.List;
 import javax.persistence.Entity;
@@ -24,7 +23,7 @@ public class User {
     private List<Account> accounts;
 
     @OneToMany(mappedBy = "user")
-    private List<Receipt> reciepts;
+    private List<Receipt> receipts;
 
     @Override
     public String toString() {
@@ -34,7 +33,7 @@ public class User {
                 ", budget=" + budget +
                 ", savingsGoal=" + savingsGoal +
                 ", accounts=" + accounts +
-                ", reciepts=" + reciepts +
+                ", reciepts=" + receipts +
                 '}';
     }
 
@@ -46,12 +45,12 @@ public class User {
         this.budget = budget;
     }
 
-    public List<Receipt> getReciepts() {
-        return reciepts;
+    public List<Receipt> getReceipts() {
+        return receipts;
     }
 
-    public void setReciepts(List<Receipt> reciepts) {
-        this.reciepts = reciepts;
+    public void setReceipts(List<Receipt> receipts) {
+        this.receipts = receipts;
     }
 
     public List<Account> getAccounts() {

@@ -1,6 +1,5 @@
 package com.example.ReceiptScanner.Model;
 
-import com.example.ReceiptScanner.Accounting.Account;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -11,7 +10,7 @@ public class Receipt extends User {
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnore
-    List<User> user;
+    User user;
 
     @Id
     @GeneratedValue
@@ -31,7 +30,7 @@ public class Receipt extends User {
                 '}';
     }
 
-    public List<User> getUser() {
+    public User getUser() {
         return user;
     }
 
