@@ -1,5 +1,8 @@
 package com.example.ReceiptScanner.Model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Item {
 
     private String name;

@@ -1,5 +1,8 @@
 package com.example.ReceiptScanner.Accounting;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Savings extends Account{
     private double balance;
     private String accountname;
