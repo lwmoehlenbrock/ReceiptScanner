@@ -11,21 +11,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@RestController
+@RequestMapping("/user")
 public class UserController1 {
-    @RestController
-    @RequestMapping("/user")
-    public class UserController {
 
 
         private UserService userService;
 
         @Autowired
-        public UserController(UserService userService) {
+        public UserController1(UserService userService) {
             this.userService = userService;
         }
 
-        public UserController() {
+        public UserController1() {
 
         }
 
@@ -48,5 +46,5 @@ public class UserController1 {
 
 
         }
-    }
+
 }
