@@ -1,8 +1,17 @@
-package com.example.ReceiptScanner;
+package com.example.ReceiptScanner.Model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.List;
 
-public class Receipt extends User{
+@Entity
+public class Receipt extends User {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
     private double total;
     private List<Item> itemList;
     private List<User> users; //needs to change

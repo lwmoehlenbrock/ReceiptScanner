@@ -1,7 +1,7 @@
 package com.example.ReceiptScanner.Repositories;
 
+import com.example.ReceiptScanner.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.ReceiptScanner.*;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 }

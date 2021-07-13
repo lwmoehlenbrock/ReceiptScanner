@@ -1,17 +1,24 @@
-package com.example.ReceiptScanner;
+package com.example.ReceiptScanner.Model;
 
 import com.example.ReceiptScanner.Accounting.*;
+import com.example.ReceiptScanner.Model.Receipt;
 
 import java.util.List;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@Entity
 public class User {
-    private @Id @GeneratedValue  Long userID;
-    //private String uniqueIdentifier;
+
+     @Id
+     @GeneratedValue
+     private Long id;
 
     private double budget;
     private double savingsGoal;
+
+    // establish relationship
     private List<Account> accounts;
     private List<Receipt> reciepts;
 
@@ -49,7 +56,13 @@ public class User {
         this.savingsGoal = savingsGoal;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 
 }

@@ -1,4 +1,4 @@
-package com.example.ReceiptScanner;
+package com.example.ReceiptScanner.Model;
 
 public class Item {
 

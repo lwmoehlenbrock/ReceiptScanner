@@ -1,6 +1,6 @@
 package com.example.ReceiptScanner.Accounting;
 
-import com.example.ReceiptScanner.User;
+import com.example.ReceiptScanner.Model.User;
 
 import java.util.List;
 
