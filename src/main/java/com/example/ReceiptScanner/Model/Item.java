@@ -2,21 +2,21 @@ package com.example.ReceiptScanner.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Item {
 
+    @Id
+    @GeneratedValue
     private String name;
     private String type;
     private double cost;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Receipt> receipts;
+    Receipt receipts;
 
     @Override
     public String toString() {
