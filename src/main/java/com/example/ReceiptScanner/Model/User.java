@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class User {
 
+
+
     @Id
     @GeneratedValue
     private Long id;
@@ -24,6 +26,18 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Receipt> receipts;
+
+    public User() {
+
+    }
+
+    public User(String name1, double budget1, double savingsGoal1, List<Account> accounts1, List<Receipt> receipts1) {
+        this.name = name1;
+        this.budget = budget1;
+        this.savingsGoal = savingsGoal1;
+        this.accounts = accounts1;
+        this.receipts = receipts1;
+    }
 
     @Override
     public String toString() {

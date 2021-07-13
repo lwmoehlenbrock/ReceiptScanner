@@ -8,6 +8,12 @@ import java.util.List;
 
 @Entity
 public class Account extends User {
+
+    public Account(String accountType, double balance) {
+
+        this.accountType = accountType;
+        this.balance = balance;
+    }
 //helloc
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnore
@@ -17,7 +23,7 @@ public class Account extends User {
     @GeneratedValue
     private Long id;
     private String accountType;
-    private String balance;
+    private double balance;
 
     public User getUser() {
         return user;
@@ -45,11 +51,11 @@ public class Account extends User {
         this.accountType = accountType;
     }
 
-    public String getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(String balance) {
+    public void setBalance(double balance) {
         this.balance += balance;
     }
 }

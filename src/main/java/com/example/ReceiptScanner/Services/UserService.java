@@ -7,6 +7,7 @@ import com.example.ReceiptScanner.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,6 +18,16 @@ public class UserService {
 
     public User createUser(User user) {
         return userRepository.save(user);
+    }
+
+    public List<User> getallUsers(){
+        return userRepository.findAll();
+    }
+
+
+
+    public void deleteAllUsers () {
+        userRepository.deleteAll();
     }
 
     public void setBudget(Long userID, double budget) {
