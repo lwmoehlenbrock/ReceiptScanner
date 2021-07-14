@@ -5,14 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-public class Account extends User {
+public class Account {
 
     public Account() {}
 
     public Account(String accountType, String accountName, double balance){
-        super();
-        this.accountName = super.name;
         this.accountType= accountType;
+        this.accountName = accountName;
         this.balance = balance;
     }
 
@@ -35,12 +34,11 @@ public class Account extends User {
         this.user = user;
     }
 
-    @Override
+
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -66,6 +64,6 @@ public class Account extends User {
     }
 
     public void setBalance(double balance) {
-        this.balance += balance;
+        this.balance = balance;
     }
 }
