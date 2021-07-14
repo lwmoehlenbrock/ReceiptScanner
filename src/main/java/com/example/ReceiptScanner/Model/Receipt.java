@@ -18,7 +18,7 @@ public class Receipt{
 
     private double total;
 
-    @OneToMany(mappedBy = "receipts")
+    @OneToMany(mappedBy = "name")
     private List<Item> itemList;
 
     @Override
@@ -26,7 +26,7 @@ public class Receipt{
         return "Receipt{" +
                 "id=" + id +
                 ", total=" + total +
-                ", itemList=" + itemList +
+                ", itemList=" + itemList.toString() +
                 '}';
     }
 

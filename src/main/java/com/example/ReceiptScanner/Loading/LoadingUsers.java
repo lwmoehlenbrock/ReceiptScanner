@@ -17,15 +17,15 @@ import java.util.List;
 public class LoadingUsers {
     private static final Logger log = LoggerFactory.getLogger(LoadingUsers.class);
     List<User> UserList = new ArrayList<>();
-    List<Receipt> receiptList = new ArrayList<>();
+    //List<Receipt> receiptList = new ArrayList<>();
     List<Account> accountsList = new ArrayList<>();
 
 
     @Bean
     CommandLineRunner initUserDB(UserRepository repository) {
         return args -> {
-            log.info("Preloading " + repository.save(new User("Alex Canseco", 200,300,accountsList,receiptList)));
-            log.info("Preloading " + repository.save(new User("Salena Gomez", 50000,200000,accountsList,receiptList)));
+            log.info("Preloading " + repository.save(new User("Alex Canseco", 200,300,accountsList)));
+            log.info("Preloading " + repository.save(new User("Salena Gomez", 50000,200000,accountsList)));
 
         };
 }

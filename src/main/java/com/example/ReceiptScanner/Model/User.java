@@ -1,5 +1,6 @@
 package com.example.ReceiptScanner.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,12 +30,12 @@ public class User {
 
     }
 
-    public User(String name1, double budget1, double savingsGoal1, List<Account> accounts1, List<Receipt> receipts1) {
+    public User(String name1, double budget1, double savingsGoal1, List<Account> accounts1) {
         this.name = name1;
         this.budget = budget1;
         this.savingsGoal = savingsGoal1;
         this.accounts = accounts1;
-        this.receipts = receipts1;
+        this.receipts = new ArrayList<Receipt>();
     }
 
     @Override
@@ -63,6 +64,10 @@ public class User {
 
     public void setReceipts(List<Receipt> receipts) {
         this.receipts = receipts;
+    }
+
+    public void addReceipt(Receipt receipt){
+        this.receipts.add(receipt);
     }
 
     public List<Account> getAccounts() {

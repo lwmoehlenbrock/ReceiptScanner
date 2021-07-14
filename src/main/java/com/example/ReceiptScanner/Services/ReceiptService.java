@@ -2,10 +2,9 @@ package com.example.ReceiptScanner.Services;
 
 import com.example.ReceiptScanner.Model.Item;
 import com.example.ReceiptScanner.Model.Receipt;
+import com.example.ReceiptScanner.Model.User;
 import com.example.ReceiptScanner.Repositories.ReceiptRepository;
 import com.example.ReceiptScanner.Repositories.UserRepository;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.params.HttpParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.xml.bind.DatatypeConverter;
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import org.apache.http.impl.client.*;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.http.HttpClient;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -48,6 +41,14 @@ public class ReceiptService {
         String receiptText = getOCRText(link);
         logger.info(receiptText);
         return parseOCRText(receiptText, userId);
+    }
+
+    public Optional<Receipt> findReceiptById(Long id){
+        return receiptRepository.findById(id);
+    }
+
+    public List<Receipt> getAllReceipts(){
+        return receiptRepository.findAll();
     }
 
 
@@ -268,6 +269,7 @@ public class ReceiptService {
             Item item = new Item();
             item.setName(entry.getKey());
             item.setCost(entry.getValue());
+            item.setType("TBD");
             itemList.add(item);
             if(missingTotal){
                 total += entry.getValue();
@@ -275,12 +277,16 @@ public class ReceiptService {
         }
 
 
+        logger.info(itemList.toString());
 
         Receipt receipt = new Receipt();
-        receipt.setUser(userRepository.getById(userId));
+        User user = userRepository.getById(userId);
+        receipt.setUser(user);
         receipt.setItemList(itemList);
         receipt.setTotal(total);
         receiptRepository.save(receipt);
+        logger.info(receiptRepository.findAll().toString());
+        user.addReceipt(receipt);
         return receipt;
 
 
