@@ -16,7 +16,7 @@ public class Account extends User {
     private Long id;
     private String accountType;
     private String accountName;
-    private String balance;
+    private double balance;
 
     public User getUser() {
         return user;
@@ -52,11 +52,11 @@ public class Account extends User {
         this.accountName = accountName;
     }
 
-    public String getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(String balance) {
+    public void setBalance(double balance) {
         this.balance += balance;
     }
 }

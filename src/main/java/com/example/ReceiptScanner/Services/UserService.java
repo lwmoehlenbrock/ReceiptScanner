@@ -22,10 +22,9 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getallUsers(){
+    public List<User> getAllUsers(){
         return userRepository.findAll();
     }
-
 
 
     public void deleteAllUsers () {
@@ -40,6 +39,7 @@ public class UserService {
         }
         User foundUser = myUser.get();
         foundUser.setBudget(budget);
+        userRepository.save(foundUser);
     }
 
     public void setSavingsGoal(Long userID, double savingsGoal) {
@@ -50,6 +50,7 @@ public class UserService {
         }
         User foundUser = myUser.get();
         foundUser.setSavingsGoal(savingsGoal);
+        userRepository.save(foundUser);
     }
 
     public double getSavingsGoal(Long userID) {

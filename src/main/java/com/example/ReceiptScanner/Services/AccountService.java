@@ -8,6 +8,7 @@ import com.example.ReceiptScanner.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,6 +35,18 @@ public class AccountService {
 
     public double getAccountBalance(Long userID, String accountName) {
 
+        Optional<User> accountUser = userRepository.findById(userID);
+
+        if (!accountUser.isPresent()) {
+            throw new InvalidUserException(""+userID);
+        }
+        User thisUser = accountUser.get();
+        List<Account> thisUsersAccounts = thisUser.getAccounts();
+        for (Account account : thisUsersAccounts) {
+            if (account.getAccountName().equals(accountName)) {
+                return account.getBalance();
+            }
+        }
         return 0;
     }
 }
