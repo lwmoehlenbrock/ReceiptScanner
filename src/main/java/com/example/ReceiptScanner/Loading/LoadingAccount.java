@@ -14,11 +14,11 @@ import org.springframework.context.annotation.Configuration;
 public class LoadingAccount {
     private static final Logger log = LoggerFactory.getLogger(LoadingAccount.class);
 
-    @Bean
+    /*@Bean
     CommandLineRunner initAccountDB(AccountRepository repository) {
         return args -> {
             log.info("Preloading " + repository.save(new Account("Checkings","Jaun Gomez",300)));
             log.info("Preloading " + repository.save(new Account("Savings","Jose Jamirez",400)));
         };
-    }
+    }*/
 }

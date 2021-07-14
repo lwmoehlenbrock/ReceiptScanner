@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @CrossOrigin
-    @DeleteMapping("/remove")
+    @DeleteMapping("/removeAll")
     public void delete(@RequestBody User user) {
         userService.deleteAllUsers();
     }
