@@ -22,9 +22,11 @@ public class LoadingUsers {
 
 
     @Bean
-    CommandLineRunner initCustomerDB(UserRepository repository) {
+    CommandLineRunner initUserDB(UserRepository repository) {
         return args -> {
-            log.info("Preloading " + repository.save(new User("Juan taco", 200,300,accountsList,receiptList)));
-    };
+            log.info("Preloading " + repository.save(new User("Alex Canseco", 200,300,accountsList,receiptList)));
+            log.info("Preloading " + repository.save(new User("Salena Gomez", 50000,200000,accountsList,receiptList)));
+
+        };
 }
 }

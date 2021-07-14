@@ -7,6 +7,15 @@ import javax.persistence.*;
 @Entity
 public class Account extends User {
 
+    public Account() {}
+
+    public Account(String accountType, String accountName, double balance){
+        super();
+        this.accountName = super.name;
+        this.accountType= accountType;
+        this.balance = balance;
+    }
+
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnore
     User user;
@@ -16,7 +25,7 @@ public class Account extends User {
     private Long id;
     private String accountType;
     private String accountName;
-    private String balance;
+    private double balance;
 
     public User getUser() {
         return user;
@@ -52,11 +61,11 @@ public class Account extends User {
         this.accountName = accountName;
     }
 
-    public String getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(String balance) {
+    public void setBalance(double balance) {
         this.balance += balance;
     }
 }
