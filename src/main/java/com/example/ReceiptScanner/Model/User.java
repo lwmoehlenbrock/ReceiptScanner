@@ -15,7 +15,7 @@ public class User {
     @GeneratedValue
     private Long id;
 
-    private String name;
+    String name;
     private double budget;
     private double savingsGoal;
 
