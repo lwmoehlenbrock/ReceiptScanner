@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Receipt extends User {
+public class Receipt{
 
     @ManyToOne(fetch= FetchType.LAZY)
     @JsonIgnore
@@ -32,6 +32,10 @@ public class Receipt extends User {
 
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user){
+        this.user = user;
     }
 
     public double getTotal() {

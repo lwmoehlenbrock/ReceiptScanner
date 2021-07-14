@@ -15,19 +15,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 @RestController
-//@RequestMapping("/receipts")
+@RequestMapping("/receipts")
 public class ReceiptController {
 
     Logger log = LoggerFactory.getLogger(ReceiptController.class);
 
-    @GetMapping("/receipts/test")
-    public String debugs(){
-        return "localhost is working";
-    }
+    @Autowired
+    ReceiptService receiptService;
 
-    @PostMapping("/receipts/scan")
-    public void scanReceipt(@ModelAttribute MultipartFile image) throws IOException {
+    @PostMapping("/scan")
+    public void scanReceipt(@ModelAttribute MultipartFile image) throws Exception {
 
-        log.info(ReceiptService.upload(image));
+        log.info(receiptService.scanReceipt(image, 3L).toString());
     }
 }
