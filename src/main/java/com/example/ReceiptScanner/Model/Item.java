@@ -10,13 +10,14 @@ public class Item {
 
     @Id
     @GeneratedValue
+    private Long id;
     private String name;
     private String type;
     private double cost;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch= FetchType.EAGER)
     @JsonIgnore
-    Receipt receipts;
+    private Receipt receipt;
 
     @Override
     public String toString() {
@@ -49,5 +50,9 @@ public class Item {
 
     public void setCost(double cost) {
         this.cost = cost;
+    }
+
+    public void setReceipt(Receipt receipt){
+        this.receipt = receipt;
     }
 }

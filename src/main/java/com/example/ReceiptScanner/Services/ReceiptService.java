@@ -3,6 +3,7 @@ package com.example.ReceiptScanner.Services;
 import com.example.ReceiptScanner.Model.Item;
 import com.example.ReceiptScanner.Model.Receipt;
 import com.example.ReceiptScanner.Model.User;
+import com.example.ReceiptScanner.Repositories.ItemRepository;
 import com.example.ReceiptScanner.Repositories.ReceiptRepository;
 import com.example.ReceiptScanner.Repositories.UserRepository;
 import org.slf4j.Logger;
@@ -36,6 +37,9 @@ public class ReceiptService {
     @Autowired
     ReceiptRepository receiptRepository;
 
+    @Autowired
+    ItemRepository itemRepository;
+
     public Receipt scanReceipt(MultipartFile image, Long userId) throws Exception {
         String link = upload(image);
         String receiptText = getOCRText(link);
@@ -47,8 +51,13 @@ public class ReceiptService {
         return receiptRepository.findById(id);
     }
 
-    public List<Receipt> getAllReceipts(){
-        return receiptRepository.findAll();
+    public String getAllReceipts(){
+        List<Receipt> receipts = receiptRepository.findAll();
+        for(Receipt receipt:receipts){
+            logger.info(receipt.getItemList().toString());
+        }
+
+        return receiptRepository.findAll().toString();
     }
 
 
@@ -56,8 +65,7 @@ public class ReceiptService {
         URL path = new URL("https://api.imgur.com/3/image");
         HttpURLConnection conn = (HttpURLConnection) path.openConnection();
         conn.setRequestMethod("POST");
-        conn.setRequestProperty("Authorization", "Client-ID 337b98313ab0735");
-
+        conn.setRequestProperty("Authorization", "Client-ID " + System.getenv("IMGUR_KEY"));
         conn.setDoOutput(true);
         OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
 
@@ -89,7 +97,7 @@ public class ReceiptService {
         //conn.setRequestProperty("isTable", "true");
 
         JSONObject postDataParams = new JSONObject();
-        postDataParams.put("apikey", "478342692b88957");
+        postDataParams.put("apikey", System.getenv("OCR_KEY"));
         postDataParams.put("url", link);
         postDataParams.put("isTable", "true");
         postDataParams.put("language", "eng");
@@ -132,11 +140,7 @@ public class ReceiptService {
                     if(dataChar[i+2] == '\\' && dataChar[i+3] == 'r' && dataChar[i+4] == '\\' && dataChar[i+5] == 'n'){
                         left = true;
                         mid = false;
-                        i++;
-                        i++;
-                        i++;
-                        i++;
-                        i++;
+                        i+=5;
                         continue;
                     }
                     //The string on the left of the first \t on each line will become the key for the item HashMap
@@ -161,11 +165,7 @@ public class ReceiptService {
                     //reset left and mid and increment i so that we don't look at \r or \n within this loop
                     left = true;
                     mid = false;
-                    i++;
-                    i++;
-                    i++;
-                    i++;
-                    i++;
+                    i+=5;
                     //Since we are at the end of the line, we don't want to execute the rest of this loop iteration
                     continue;
                 }
@@ -285,6 +285,9 @@ public class ReceiptService {
         receipt.setItemList(itemList);
         receipt.setTotal(total);
         receiptRepository.save(receipt);
+        for(Item item:itemList){
+            itemRepository.save(item);
+        }
         logger.info(receiptRepository.findAll().toString());
         user.addReceipt(receipt);
         return receipt;

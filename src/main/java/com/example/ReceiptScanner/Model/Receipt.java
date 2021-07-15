@@ -18,7 +18,7 @@ public class Receipt{
 
     private double total;
 
-    @OneToMany(mappedBy = "name")
+    @OneToMany(mappedBy = "receipt")
     private List<Item> itemList;
 
     @Override
@@ -51,6 +51,10 @@ public class Receipt{
     }
 
     public void setItemList(List<Item> itemList) {
+
         this.itemList = itemList;
+        for(Item item:itemList){
+            item.setReceipt(this);
+        }
     }
 }

@@ -38,7 +38,8 @@ public class ReceiptController {
     }
 
     @GetMapping("/find")
-    public List<Receipt> findAllReceipts(){
+    public String findAllReceipts(){
+        log.info(receiptService.getAllReceipts());
         return receiptService.getAllReceipts();
     }
 }
