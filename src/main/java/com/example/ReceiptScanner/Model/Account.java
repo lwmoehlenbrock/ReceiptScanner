@@ -34,6 +34,15 @@ public class Account {
         this.user = user;
     }
 
+    @Override
+    public String toString(){
+        return "Account{" +
+                "id=" + id +
+                ", accountType=" + accountType +
+                ", accountName=" + accountName +
+                ", balance=" + balance +
+                '}';
+    }
 
     public Long getId() {
         return id;

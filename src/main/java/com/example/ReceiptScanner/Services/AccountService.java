@@ -6,6 +6,8 @@ import com.example.ReceiptScanner.Model.Account;
 import com.example.ReceiptScanner.Model.User;
 import com.example.ReceiptScanner.Repositories.AccountRepository;
 import com.example.ReceiptScanner.Repositories.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,8 @@ public class AccountService {
 
     @Autowired
     AccountRepository accountRepository;
+
+    Logger log = LoggerFactory.getLogger(AccountService.class);
 
     public Account addAccount(Long userID, Account account) {
 
@@ -66,6 +70,7 @@ public class AccountService {
             throw new InvalidUserException(""+userID);
         }
         User thisUser = accountUser.get();
+        log.info(thisUser.toString());
         List<Account> thisUsersAccounts = thisUser.getAccounts();
         for (Account account : thisUsersAccounts) {
             if (account.getAccountName().equals(accountName)) {
@@ -79,6 +84,7 @@ public class AccountService {
 
         Optional<User> accountUser = userRepository.findById(userID);
 
+        log.info("updating");
         if (!accountUser.isPresent()) {
             throw new InvalidUserException(""+userID);
         }
@@ -86,6 +92,7 @@ public class AccountService {
         List<Account> thisUsersAccounts = thisUser.getAccounts();
         for (Account account : thisUsersAccounts) {
             if (account.getAccountName().equals(accountName)) {
+                log.info("Account found");
                 account.setBalance(account.getBalance() + newBalance);
                 accountRepository.save(account);
             }

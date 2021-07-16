@@ -1,11 +1,15 @@
 package com.example.ReceiptScanner.Services;
 
+import com.example.ReceiptScanner.Exceptions.InvalidUserException;
+import com.example.ReceiptScanner.Model.Account;
 import com.example.ReceiptScanner.Model.Item;
 import com.example.ReceiptScanner.Model.Receipt;
 import com.example.ReceiptScanner.Model.User;
+import com.example.ReceiptScanner.Repositories.AccountRepository;
 import com.example.ReceiptScanner.Repositories.ItemRepository;
 import com.example.ReceiptScanner.Repositories.ReceiptRepository;
 import com.example.ReceiptScanner.Repositories.UserRepository;
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.xml.bind.DatatypeConverter;
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -40,11 +45,34 @@ public class ReceiptService {
     @Autowired
     ItemRepository itemRepository;
 
+    @Autowired
+    AccountRepository accountRepository;
+
+
     public Receipt scanReceipt(MultipartFile image, Long userId) throws Exception {
         String link = upload(image);
         String receiptText = getOCRText(link);
         logger.info(receiptText);
         return parseOCRText(receiptText, userId);
+    }
+
+    //This seems to be the only way to actually update the account balance from the ReceiptService.
+    public void updateAccountBalanceFromReceipt(Long userId, String accountName, double newBalance){
+        Optional<User> accountUser = userRepository.findById(userId);
+
+        if (!accountUser.isPresent()) {
+            throw new InvalidUserException(""+userId);
+        }
+        User thisUser = accountUser.get();
+        logger.info(thisUser.toString());
+        List<Account> thisUsersAccounts = thisUser.getAccounts();
+        for (Account account : thisUsersAccounts) {
+            if (account.getAccountName().equals("\"" + accountName + "\"")) {
+                account.setBalance(account.getBalance() + newBalance);
+                accountRepository.save(account);
+            }
+        }
+        userRepository.save(thisUser);
     }
 
     public Optional<Receipt> findReceiptById(Long id){

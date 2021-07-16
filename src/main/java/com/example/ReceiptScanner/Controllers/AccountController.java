@@ -3,6 +3,8 @@ package com.example.ReceiptScanner.Controllers;
 import com.example.ReceiptScanner.Model.Account;
 import com.example.ReceiptScanner.Services.AccountService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,8 @@ public class AccountController {
     protected AccountController(){
 
     }
+
+    Logger log = LoggerFactory.getLogger(AccountController.class);
 
     @CrossOrigin
     @PostMapping("/addAccount")
@@ -49,6 +53,14 @@ public class AccountController {
         String accountName = objectNode.get("accountName").toString();
         double newBalance = objectNode.get("newBalance").asDouble();
         accountService.updateAccountBalance(id, accountName, newBalance);
+    }
+
+    @CrossOrigin
+    @PutMapping("/updateBalance/{id}&{accountName}&{newBalance}")
+    public double updateAccountBalanceFromRedirect(@PathVariable("id") Long id, @PathVariable("accountName") String accountName, @PathVariable("newBalance") double newBalance){
+        log.info("redirected");
+        accountService.updateAccountBalance(id, accountName, newBalance);
+        return accountService.getAccountBalance(id, accountName);
     }
 
     @CrossOrigin
