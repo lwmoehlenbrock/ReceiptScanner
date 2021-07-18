@@ -32,12 +32,13 @@ public class ReceiptController {
 
 
     @PostMapping("/scan/{id}&{accountName}")
-    public void scanReceipt(@ModelAttribute MultipartFile image, @PathVariable("id") Long id, @PathVariable("accountName") String accountName, HttpServletResponse response) throws Exception {
+    public Receipt scanReceipt(@ModelAttribute MultipartFile image, @PathVariable("id") Long id, @PathVariable("accountName") String accountName, HttpServletResponse response) throws Exception {
 
         log.info("Account Name: " + accountName);
         Receipt receipt = receiptService.scanReceipt(image, id);
 
         receiptService.updateAccountBalanceFromReceipt(id, accountName, -receipt.getTotal());
+        return receipt;
         //double updateBalance = -receipt.getTotal();
         //response.sendRedirect("/accounts/updateBalance/" + id + "&" + accountName + "&" + updateBalance);
 

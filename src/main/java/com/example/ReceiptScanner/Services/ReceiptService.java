@@ -218,7 +218,7 @@ public class ReceiptService {
         //There are some cases where the right side of the receipt doesn't contain text, such as the business name or date,
         //so if there are any alphabet characters (excluding s in the case of OCR misreading a $) we will mark that pair of the
         //HashMap as notAnItem so that it doesn't get added to the itemized part of the receipt
-        String charactersForFilter = "abcdefghijklmnopqrtuvwxyzABCDEFGHIJKLMNOPQRTUVWXYZ:/#";
+        String charactersForFilter = "0123456789.";
 
         //Various interpretations that OCR might find when reading "Total"
         String[] totals = {"Total", "Tota1", "Tota 1", "total", "tota 1", "TOTAL", "TOTA1", "TOTA 1", "tota1"};
@@ -257,7 +257,7 @@ public class ReceiptService {
             //Look at each character in right side of the receipt and if its an alphabet character, then we aren't looking
             //at a price so we skip this entry in the HashMap
             for(char character:priceChar){
-                if(charactersForFilter.indexOf(character) >= 0){
+                if(charactersForFilter.indexOf(character) == -1){
                     notAnItem = true;
                     break;
                 }
@@ -286,7 +286,6 @@ public class ReceiptService {
             }
 
         }
-
         //if there was no total field on the receipt or OCR missed it, manually sum up the items for the receipt
         if (total == 0){
             missingTotal = true;
@@ -304,9 +303,6 @@ public class ReceiptService {
             }
         }
 
-
-        logger.info(itemList.toString());
-
         Receipt receipt = new Receipt();
         User user = userRepository.getById(userId);
         receipt.setUser(user);
@@ -319,9 +315,6 @@ public class ReceiptService {
         logger.info(receiptRepository.findAll().toString());
         user.addReceipt(receipt);
         return receipt;
-
-
-
     }
 
     //Shamelessly taken from https://github.com/bsuhas/OCRTextRecognitionAndroidApp/blob/be7bb24a0e880cf174de9f16047fcb1b8c7447c6/app/src/main/java/com/ocrtextrecognitionapp/OCRAsyncTask.java
