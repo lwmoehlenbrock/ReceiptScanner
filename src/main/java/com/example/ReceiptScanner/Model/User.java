@@ -38,6 +38,12 @@ public class User {
         this.receipts = new ArrayList<Receipt>();
     }
 
+    public User(String name1, double budget1, double savingsGoal1) {
+        this.name = name1;
+        this.budget = budget1;
+        this.savingsGoal = savingsGoal1;
+    }
+
     @Override
     public String toString() {
         return "User{" +
