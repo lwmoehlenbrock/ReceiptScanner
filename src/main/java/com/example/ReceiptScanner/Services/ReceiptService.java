@@ -222,7 +222,7 @@ public class ReceiptService {
 
         //Various interpretations that OCR might find when reading "Total"
         String[] totals = {"Total", "Tota1", "Tota 1", "total", "tota 1", "TOTAL", "TOTA1", "TOTA 1", "tota1"};
-        String[] subTotals = {"subtotal", "Sub Total", "Subtotal", "SubTotal", "sub total", "Sub "};
+        String[] subTotals = {"subtotal", "Sub Total", "Subtotal", "SubTotal", "sub total", "Sub ", "Amount", "amount", "Items", "items"};
         boolean notAnItem = false;
         boolean missingTotal = false;
 
