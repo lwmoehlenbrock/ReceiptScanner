@@ -218,7 +218,7 @@ public class ReceiptService {
         //There are some cases where the right side of the receipt doesn't contain text, such as the business name or date,
         //so if there are any alphabet characters (excluding s in the case of OCR misreading a $) we will mark that pair of the
         //HashMap as notAnItem so that it doesn't get added to the itemized part of the receipt
-        String charactersForFilter = "0123456789.";
+        String charactersForFilter = "0123456789.$ ";
 
         //Various interpretations that OCR might find when reading "Total"
         String[] totals = {"Total", "Tota1", "Tota 1", "total", "tota 1", "TOTAL", "TOTA1", "TOTA 1", "tota1"};
